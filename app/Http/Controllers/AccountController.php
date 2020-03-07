@@ -13,7 +13,9 @@ class AccountController extends Controller
      */
     public function index()
     {
-        //
+        $accounts = Account::all();
+
+        return view('account.index', compact('accounts'));
     }
 
     /**
@@ -23,7 +25,7 @@ class AccountController extends Controller
      */
     public function create()
     {
-        //
+        return view('account.create');
     }
 
     /**
@@ -34,7 +36,7 @@ class AccountController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $account = Account::create($request->all());
     }
 
     /**
@@ -45,7 +47,7 @@ class AccountController extends Controller
      */
     public function show($id)
     {
-        //
+        return Account::findOrFail($id);
     }
 
     /**

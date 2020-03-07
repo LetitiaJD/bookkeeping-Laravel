@@ -13,7 +13,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+
+        return view('category.index', compact('categories'));
     }
 
     /**
@@ -23,7 +25,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $category = Category::create($request->all());
     }
 
     /**
@@ -34,7 +36,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return view('category.create');
     }
 
     /**
@@ -45,7 +47,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        return Category::findOrFail($id);
     }
 
     /**

@@ -13,7 +13,9 @@ class EntryController extends Controller
      */
     public function index()
     {
-        //
+        $entries = Entry::all();
+
+        return view('entry.index', compact('entries'));
     }
 
     /**
@@ -23,7 +25,7 @@ class EntryController extends Controller
      */
     public function create()
     {
-        //
+        return view('entry.create');
     }
 
     /**
@@ -34,7 +36,21 @@ class EntryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $entry = new Entry;
+
+        // TODO Do this the laravel way using relationships
+        $account = DB::table('account')->where('account_holder', $request['account_holder'])->first();
+        $account_id = $account->account_id;
+
+        $category = DB::table('category')->where('category_name', $request['category_name'])->first();
+        $category_id = $category->category_id;
+
+        $entry->account_id = $account_id;
+        $entry->category_id = $category_id;
+        $entry->entry_date = $request['entry_date'];
+        $entry->entry_description = $request['entry_description'];
+        $entry->entry_amount = $request['entry_amount'];
+        $entry->save();
     }
 
     /**
@@ -45,7 +61,7 @@ class EntryController extends Controller
      */
     public function show($id)
     {
-        //
+        return Entry::findOrFail($id);
     }
 
     /**
