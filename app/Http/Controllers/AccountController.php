@@ -38,10 +38,7 @@ class AccountController extends Controller
      */
     public function store(Request $request)
     {
-        $account = new Account();
-        $account->account_type = $request->account_type;
-        $account->account_holder = $request->account_holder;
-        $account->save();
+        Account::create($request->all())->save();
     }
 
     /**
