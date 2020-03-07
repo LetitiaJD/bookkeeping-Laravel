@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Account;
+use App\Http\Controllers\Controller;
 
 class AccountController extends Controller
 {
@@ -36,7 +38,10 @@ class AccountController extends Controller
      */
     public function store(Request $request)
     {
-        $account = Account::create($request->all());
+        $account = new Account();
+        $account->account_type = $request->account_type;
+        $account->account_holder = $request->account_holder;
+        $account->save();
     }
 
     /**
