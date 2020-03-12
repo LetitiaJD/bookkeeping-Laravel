@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Category;
+use App\Http\Controllers\Controller;
+use App\Exceptions\Handler;
 
 class CategoryController extends Controller
 {
@@ -25,7 +28,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $category = Category::create($request->all());
+        return view('category.create');
     }
 
     /**
@@ -36,7 +39,14 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        return view('category.create');
+        try {
+            Category::create($request->all())->save();
+        } catch(\Illuminate\Database\QueryException $e) {
+            return redirect()->route('category.index')->withError($e->getMessage());
+        } catch(\Illuminate\Database\Exception $e) {
+            return redirect()->route('category.index')->withError('Oops, something went wrong...');
+        }
+        return redirect()->route('category.index')->with('success', 'Die Kategorie wurde erfolgreich gespeichert');
     }
 
     /**
@@ -58,7 +68,9 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::findOrFail($id);
+
+        return view('category.edit', compact('category'));
     }
 
     /**
@@ -70,7 +82,11 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $category->category_name = $request->category_name;
+        $category->save();
+
+        return redirect()->route('category.index')->with('success', 'Die Kategorie wurde erfolgreich hinzugefügt');
     }
 
     /**
@@ -81,6 +97,9 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $category->delete();
+
+        return redirect()->route('category.index')->with('success', 'Die Kategorie wurde erfolgreich gelöscht');
     }
 }

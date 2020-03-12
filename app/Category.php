@@ -26,6 +26,8 @@ class Category extends Model
 
     protected $primaryKey = 'category_id';
 
+    protected $table = 'category';
+
     public function entry(){
         return $this->hasOne('App\Entry', 'account_id');
     }

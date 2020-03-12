@@ -38,7 +38,14 @@ class AccountController extends Controller
      */
     public function store(Request $request)
     {
-        Account::create($request->all())->save();
+        try {
+            Account::create($request->all())->save();
+        } catch(\Illuminate\Database\QueryException $e) {
+            return redirect()->route('account.index')->withError($e->getMessage());
+        } catch(\Illuminate\Database\Exception $e) {
+            return redirect()->route('account.index')->withError('Oops, something went wrong...');
+        }
+        return redirect()->route('account.index')->with('success', 'Der Konto wurde erfolgreich gespeichert');
     }
 
     /**
@@ -60,7 +67,9 @@ class AccountController extends Controller
      */
     public function edit($id)
     {
-        //
+        $account = Account::findOrFail($id);
+
+        return view('account.edit', compact('account'));
     }
 
     /**
@@ -72,7 +81,12 @@ class AccountController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $account = Account::findOrFail($id);
+        $account->account_type = $request->account_type;
+        $account->account_holder = $request->account_holder;
+        $account->save();
+
+        return redirect()->route('category.index')->with('success', 'Die Kategorie wurde erfolgreich hinzugefügt');
     }
 
     /**
@@ -83,6 +97,9 @@ class AccountController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $account = Category::findOrFail($id);
+        $account->delete();
+
+        return redirect()->route('account.index')->with('success', 'Der Konto wurde erfolgreich gelöscht');
     }
 }
