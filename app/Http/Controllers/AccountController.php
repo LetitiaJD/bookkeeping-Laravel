@@ -97,7 +97,7 @@ class AccountController extends Controller
      */
     public function destroy($id)
     {
-        $account = Category::findOrFail($id);
+        $account = Account::findOrFail($id);
         $account->delete();
 
         return redirect()->route('account.index')->with('success', 'Der Konto wurde erfolgreich gelöscht');
