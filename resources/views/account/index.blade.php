@@ -3,7 +3,7 @@
 @section('main')
 
 <div class="row">
-    <div class="col-sm-12">
+    <div class="col-12">
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
@@ -17,13 +17,13 @@
 </div>
 
 <div class="row">
-    <div class="col-sm-12">
+    <div class="col-12">
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr>
                     <td>Kontotyp</td>
                     <td>Kontoinhaber</td>
-                    <td>Aktion</td>
+                    <td>Aktionen</td>
                 </tr>
             </thead>
             @foreach ($accounts as $account)
@@ -32,7 +32,7 @@
                     <td> {{ $account->account_holder }} </td>
                     <td>
                         <a href="account/{{$account->account_id}}/edit" class="btn btn-primary btn-sm active" role="button" aria-pressed="true">Bearbeiten</a>
-                        <form method="post" action="{{ route('account.destroy', $account->account_id) }}">
+                        <form method="post" action="{{ route('account.destroy', $account->account_id) }}" >
                             @method('delete')
                             @csrf
                             <button onclick="return confirm('Möchten Sie diesen Konto wirklich löschen?')"
@@ -42,13 +42,6 @@
                     </td>
                 </tr>
             @endforeach
-            <tfoot class="table-dark">
-                <tr>
-                    <td>Kontotyp</td>
-                    <td>Kontoinhaber</td>
-                    <td>Aktion</td>
-                </tr>
-            </tfoot>
         </table>
     </div>
 </div>

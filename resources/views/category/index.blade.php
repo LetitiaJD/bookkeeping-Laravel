@@ -3,7 +3,7 @@
 @section('main')
 
 <div class="row">
-    <div class="col-sm-12">
+    <div class="col-12">
         @if(session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
@@ -17,12 +17,12 @@
 </div>
 
 <div class="row">
-    <div class="col-sm-12">
+    <div class="col-12">
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr>
                     <td>Kategorie</td>
-                    <td>Aktion</td>
+                    <td>Aktionen</td>
                 </tr>
             </thead>
             @foreach ($categories as $category)
