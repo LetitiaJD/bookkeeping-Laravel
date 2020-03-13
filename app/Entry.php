@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Entry extends Model
 {
@@ -24,6 +25,13 @@ class Entry extends Model
         //
     ];
 
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['entry_date', 'created_at', 'updated_at'];
+
     protected $primaryKey = 'entry_id';
 
     protected $table = 'entry';
@@ -33,6 +41,6 @@ class Entry extends Model
     }
 
     public function category(){
-        return $this->hasOne('App\Category', 'category_id');
+        return $this->belongsTo('App\Category', 'category_id');
     }
 }
