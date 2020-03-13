@@ -3,6 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Entry;
+use App\Account;
+use App\Category;
+use DB;
+use App\Http\Controllers\Controller;
+use App\Exceptions\Handler;
 
 class EntryController extends Controller
 {
@@ -25,7 +31,13 @@ class EntryController extends Controller
      */
     public function create()
     {
-        return view('entry.create');
+        // Required for select dropdown to select an account
+        // Remove once login has been implemented
+        $accounts = Account::all();
+
+        $categories = Category::all();
+
+        return view('entry.create', compact('accounts', 'categories'));
     }
 
     /**
@@ -36,7 +48,7 @@ class EntryController extends Controller
      */
     public function store(Request $request)
     {
-        $entry = new Entry;
+        $entry = new Entry();
 
         // TODO Do this the laravel way using relationships
         $account = DB::table('account')->where('account_holder', $request['account_holder'])->first();
@@ -51,6 +63,8 @@ class EntryController extends Controller
         $entry->entry_description = $request['entry_description'];
         $entry->entry_amount = $request['entry_amount'];
         $entry->save();
+
+        return redirect()->route('entry.index')->with('success', 'Der Eintrag wurde erfolgreich gespeichert');
     }
 
     /**
