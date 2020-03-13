@@ -21,7 +21,7 @@ class CreateEntryTable extends Migration
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
             $table->string('entry_description');
-            $table->double('entry_amount');
+            $table->decimal('entry_amount', 12, 2);
         });
 
         Schema::table('entry', function($table){
