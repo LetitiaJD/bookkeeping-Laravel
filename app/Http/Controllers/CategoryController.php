@@ -39,13 +39,12 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            Category::create($request->all())->save();
-        } catch(\Illuminate\Database\QueryException $e) {
-            return redirect()->route('category.index')->withError($e->getMessage());
-        } catch(\Illuminate\Database\Exception $e) {
-            return redirect()->route('category.index')->withError('Oops, something went wrong...');
-        }
+        $validator = $request->validate([
+            'category_name' => 'required|max:255'
+        ]);
+
+        Category::create($request->all())->save();
+
         return redirect()->route('category.index')->with('success', 'Die Kategorie wurde erfolgreich gespeichert');
     }
 

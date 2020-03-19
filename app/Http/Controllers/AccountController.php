@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Account;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class AccountController extends Controller
 {
@@ -38,13 +39,18 @@ class AccountController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            Account::create($request->all())->save();
-        } catch(\Illuminate\Database\QueryException $e) {
-            return redirect()->route('account.index')->withError($e->getMessage());
-        } catch(\Illuminate\Database\Exception $e) {
-            return redirect()->route('account.index')->withError('Oops, something went wrong...');
-        }
+        $messages = [
+            'account_type.required' => 'Der Kontotyp muss angegeben werden.',
+            'account_holder.required' => 'Der Kontoinhaber muss angegeben werden.'
+        ];
+
+        $validator = $request->validate([
+            'account_type' => 'required|max:255|numeric',
+            'account_holder' => 'required|max:255',
+        ], $messages);
+
+        Account::create($request->all())->save();
+
         return redirect()->route('account.index')->with('success', 'Der Konto wurde erfolgreich gespeichert');
     }
 
