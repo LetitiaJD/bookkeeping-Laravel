@@ -39,6 +39,11 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $messages = [
+            'category_name.required' => 'Die Kategorie muss angegeben sein.',
+            'category_name.max' => 'Die Kategorie darf nicht mehr als 255 Zeichen umfassen.'
+        ];
+
         $validator = $request->validate([
             'category_name' => 'required|max:255'
         ]);

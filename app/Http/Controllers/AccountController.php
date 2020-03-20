@@ -49,7 +49,7 @@ class AccountController extends Controller
 
         $validator = $request->validate([
             'account_type' => 'required|max:255|alpha_num',
-            'account_holder' => 'required|max:255',
+            'account_holder' => 'required|max:255|unique:account,account_holder'
         ], $messages);
 
         $account = Account::create($request->all())->save();
