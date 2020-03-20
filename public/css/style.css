@@ -1,3 +1,7 @@
 div.main-content {
-    margin-top: 25px;
+    margin-top: 20px;
+}
+
+.bottom-gap {
+    margin-bottom: 10px;
 }

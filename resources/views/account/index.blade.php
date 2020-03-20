@@ -16,6 +16,12 @@
     </div>
 </div>
 
+<div class="row bottom-gap">
+    <div class="col-12">
+        <a class="btn btn-success" href="{{ route('account.create') }}" role="button">+ Neues Konto</a>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-12">
         <table class="table table-striped">

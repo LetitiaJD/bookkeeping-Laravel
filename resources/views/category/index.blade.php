@@ -16,8 +16,10 @@
     </div>
 </div>
 
-<div class="row">
-    <a class="btn btn-success" href="{{ route('category.create') }}" role="button">+ Neue Kategorie</a>
+<div class="row bottom-gap">
+    <div class="col-12">
+        <a class="btn btn-success" href="{{ route('category.create') }}" role="button">+ Neue Kategorie</a>
+    </div>
 </div>
 
 <div class="row">
