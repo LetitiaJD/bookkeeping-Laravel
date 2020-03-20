@@ -16,7 +16,8 @@
         @csrf
         <div class="form-group">
             <label for="account_type">Kontotyp</label>
-            <input type="text" class="form-control" name="account_type" id="account_type" aria-describedby="account_type" placeholder="z.B. Giro, Sparkonto">
+            <input type="text" class="form-control" name="account_type" id="account_type"
+                aria-describedby="account_type" placeholder="z.B. Giro, Sparkonto" value="{{ $account->account_type ?? ''}}">
         </div>
 
         <div class="form-group">

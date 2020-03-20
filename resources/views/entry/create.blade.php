@@ -2,6 +2,16 @@
 
 @section('main')
 
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
     <form method="post" action="{{ route('entry.store') }}">
         @csrf
         <div class="form-group">
@@ -23,18 +33,18 @@
         </div>
 
         <div class="form-group">
-            <label for="category_name">Eintragsdatum</label>
-            <input type="date" class="form-control" name="entry_date" id="entry_date" aria-describedby="entry_date" placeholder="z.B. ">
+            <label for="entry_date">Eintragsdatum</label>
+            <input type="date" class="form-control" name="entry_date" id="entry_date" aria-describedby="entry_date" placeholder="tt.mm.jjjj">
         </div>
 
         <div class="form-group">
-            <label for="category_name">Beschreibung</label>
+            <label for="entry_description">Beschreibung</label>
             <input type="text" class="form-control" name="entry_description" id="entry_description" aria-describedby="entry_description" placeholder="z.B. ">
         </div>
 
         <div class="form-group">
-            <label for="category_name">Betrag</label>
-            <input type="number" class="form-control" name="entry_amount" id="entry_amount" aria-describedby="entry_amount" placeholder="z.B. 2,00 ">
+            <label for="entry_amount">Betrag</label>
+            <input type="text" class="form-control" name="entry_amount" id="entry_amount" aria-describedby="entry_amount" placeholder="z.B. 2,00 ">
         </div>
 
         <button type="submit" class="btn btn-primary">Eintrag hinzufügen</button>

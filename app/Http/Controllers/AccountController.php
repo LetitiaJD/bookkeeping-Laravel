@@ -41,15 +41,18 @@ class AccountController extends Controller
     {
         $messages = [
             'account_type.required' => 'Der Kontotyp muss angegeben werden.',
-            'account_holder.required' => 'Der Kontoinhaber muss angegeben werden.'
+            'account_type.max' => 'Der Kontotyp darf nicht mehr als 255 Zeichen umfassen.',
+            'account_type.alpha_num' => 'Der Kontotyp darf nur aus alphanumerischen Zeichen bestehen.',
+            'account_holder.required' => 'Der Kontoinhaber muss angegeben werden.',
+            'account_holder.max' => 'Der Kontoinhaber darf nicht mehr als 255 Zeichen umfassen.'
         ];
 
         $validator = $request->validate([
-            'account_type' => 'required|max:255|numeric',
+            'account_type' => 'required|max:255|alpha_num',
             'account_holder' => 'required|max:255',
         ], $messages);
 
-        Account::create($request->all())->save();
+        $account = Account::create($request->all())->save();
 
         return redirect()->route('account.index')->with('success', 'Der Konto wurde erfolgreich gespeichert');
     }

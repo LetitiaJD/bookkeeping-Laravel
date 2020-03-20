@@ -48,6 +48,23 @@ class EntryController extends Controller
      */
     public function store(Request $request)
     {
+        $messages = [
+            'entry_date.date' => 'Das Eintragsdatum muss das Format \'tt.mm.jjjj\' haben.',
+            'entry_date.required' => 'Das Eintragsdatum muss angegeben sein.',
+            'entry_description.required' => 'Der Kontotyp muss angegeben werden.',
+            'entry_description.max' => 'Die Beschreibung darf nicht mehr als 255 Zeichen umfassen.',
+            'entry_description.alpha_num' => 'Die Beschreibung darf nur aus alphanumerischen Zeichen bestehen.',
+            'entry_amount.required' => 'Der Betrag muss angegeben sein.',
+            'entry_amount.max' => 'Der Betrag darf nicht mehr als 8 Zeichen umfassen.',
+            'entry_amount.numeric' => 'Der Betrag muss numerisch sein.'
+        ];
+
+        $validator = $request->validate([
+            'entry_date' => 'required|date',
+            'entry_description' => 'required|max:255|alpha_num',
+            'entry_amount' => 'required|max:8|regex:/^\d+(\,\d{1,2})?$/',
+        ], $messages);
+
         $entry = new Entry();
 
         // TODO Do this the laravel way using relationships
