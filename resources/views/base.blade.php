@@ -6,13 +6,10 @@
     <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
     <title>Haushaltsbuch</title>
 
-    <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url('/css/style.css') }}" />
 
-    <style>
-        nav { padding-bottom: 700px; }
-    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -25,11 +22,11 @@
 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-            Einträgeverwaltung
+            Transaktionen
           </a>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="{{ route('entry.create') }}">Eintrag hinzufügen</a>
-            <a class="dropdown-item" href="{{ route('entry.index') }}">Eintragsübersicht</a>
+            <a class="dropdown-item" href="{{ route('entry.create') }}">Transaktion hinzufügen</a>
+            <a class="dropdown-item" href="{{ route('entry.index') }}">Transaktionsübersicht</a>
           </div>
         </li>
 
@@ -56,7 +53,7 @@
     </nav>
 
     <!-- Page Content -->
-    <div class="container">
+    <div class="container main-content">
         <div class="row">
             <div class="col-12">
                 @yield('main')
