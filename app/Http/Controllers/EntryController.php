@@ -54,15 +54,13 @@ class EntryController extends Controller
             'entry_description.required' => 'Der Kontotyp muss angegeben werden.',
             'entry_description.max' => 'Die Beschreibung darf nicht mehr als 255 Zeichen umfassen.',
             'entry_description.alpha_num' => 'Die Beschreibung darf nur aus alphanumerischen Zeichen bestehen.',
-            'entry_amount.required' => 'Der Betrag muss angegeben sein.',
-            'entry_amount.max' => 'Der Betrag darf nicht mehr als 8 Zeichen umfassen.',
-            'entry_amount.numeric' => 'Der Betrag muss numerisch sein.'
+            'entry_amount.required' => 'Der Betrag muss angegeben sein.'
         ];
 
         $validator = $request->validate([
             'entry_date' => 'required|date',
             'entry_description' => 'required|max:255|alpha_num',
-            'entry_amount' => 'required|max:8|regex:/^\d+(\,\d{1,2})?$/',
+            'entry_amount' => 'required|min:0|regex:/^(\d+(?:[\.\,]\d{2})?)$/',
         ], $messages);
 
         $entry = new Entry();
@@ -78,7 +76,7 @@ class EntryController extends Controller
         $entry->category_id = $category_id;
         $entry->entry_date = $request['entry_date'];
         $entry->entry_description = $request['entry_description'];
-        $entry->entry_amount = $request['entry_amount'];
+        $entry->entry_amount = str_replace(',', '.', $request['entry_amount']);
         $entry->save();
 
         return redirect()->route('entry.index')->with('success', 'Der Eintrag wurde erfolgreich gespeichert');
