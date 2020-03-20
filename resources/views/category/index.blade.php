@@ -17,6 +17,10 @@
 </div>
 
 <div class="row">
+    <a class="btn btn-success" href="{{ route('category.create') }}" role="button">+ Neue Kategorie</a>
+</div>
+
+<div class="row">
     <div class="col-12">
         <table class="table table-striped">
             <thead class="table-dark">
