@@ -54,7 +54,7 @@ class AccountController extends Controller
 
         $account = Account::create($request->all())->save();
 
-        return redirect()->route('account.index')->with('success', 'Der Konto wurde erfolgreich gespeichert');
+        return redirect()->route('account.index')->with('success', 'Das Konto wurde erfolgreich gespeichert');
     }
 
     /**
@@ -109,6 +109,6 @@ class AccountController extends Controller
         $account = Account::findOrFail($id);
         $account->delete();
 
-        return redirect()->route('account.index')->with('success', 'Der Konto wurde erfolgreich gelöscht');
+        return redirect()->route('account.index')->with('success', 'Das Konto wurde erfolgreich gelöscht');
     }
 }
