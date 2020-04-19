@@ -11,7 +11,7 @@ $('#calendarRange').daterangepicker({
         'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
     },
     "locale": {
-        "format": "MM/DD/YYYY",
+        "format": "DD/MM/YYYY",
         "separator": " - ",
         "applyLabel": "Apply",
         "cancelLabel": "Cancel",
@@ -45,8 +45,8 @@ $('#calendarRange').daterangepicker({
         "firstDay": 1
     },
     "alwaysShowCalendars": true,
-    "startDate": "04/13/2020",
-    "endDate": "04/19/2020"
+    "startDate": "13/04/2020",
+    "endDate": "19/04/2020"
 }, function(start, end, label) {
-  console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+  console.log('New date range selected: ' + start.format('DD-MM-YYYY') + ' to ' + end.format('DD-MM-YYYY') + ' (predefined range: ' + label + ')');
 });
