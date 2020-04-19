@@ -10,3 +10,13 @@ div.main-content {
     float:left;
     margin-right: 5px;
 }
+
+table {
+    width: 100%;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.table tbody > tr > td {
+    vertical-align: middle;
+}
