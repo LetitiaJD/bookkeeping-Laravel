@@ -5,3 +5,8 @@ div.main-content {
 .bottom-gap {
     margin-bottom: 10px;
 }
+
+.floated {
+    float:left;
+    margin-right: 5px;
+}

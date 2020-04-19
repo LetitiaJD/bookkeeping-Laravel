@@ -35,12 +35,12 @@
                 <tr>
                     <td> {{ $category->category_name }} </td>
                     <td>
-                        <a href="{{ route('category.edit', $category->category_id) }}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true">Bearbeiten</a>
+                        <a href="{{ route('category.edit', $category->category_id) }}" class="btn btn-primary btn-sm active floated" role="button" aria-pressed="true">Bearbeiten</a>
                         <form method="post" action="{{ route('category.destroy', $category->category_id) }}">
                             @method('delete')
                             @csrf
                             <button onclick="return confirm('Möchten Sie diese Kategorie wirklich löschen?')"
-                                    class="btn btn-danger btn-sm" type="submit">Löschen
+                                    class="btn btn-danger btn-sm floated" type="submit">Löschen
                             </button>
                         </form>
                     </td>
