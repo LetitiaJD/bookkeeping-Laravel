@@ -22,3 +22,5 @@ Route::resource('account', 'AccountController');
 Route::resource('category', 'CategoryController');
 
 Route::resource('entry', 'EntryController');
+
+Route::post('/filter', 'EntryController@filter');

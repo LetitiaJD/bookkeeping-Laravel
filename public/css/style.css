@@ -20,3 +20,11 @@ table {
 .table tbody > tr > td {
     vertical-align: middle;
 }
+
+div.input-group label {
+    padding-top: 3px;
+}
+
+div.input-group select {
+    margin: 0 5px;
+}

@@ -1,7 +1,7 @@
 @extends('base')
 
 @section('main')
-
+@include('entry.tableRow')
 <div class="row">
     <div class="col-12">
         @if(session('success'))
@@ -26,6 +26,18 @@
     <form>
         <div class="form-row align-items-center">
             <div class="col-auto">
+                <div class="input-group mb-2">
+                    <label for="showEntries">Anzeige </label>
+                    <select id="showEntries" class="form-control form-control-sm">
+                        <option>5</option>
+                        <option>10</option>
+                        <option>20</option>
+                    </select>
+                    <label for="showEntries">Einträge</label>
+                </div>
+            </div>
+
+            <div class="col-auto">
                 <label class="sr-only" for="calendarRange"></label>
                 <div class="input-group mb-2">
                     <div class="input-group-prepend">
@@ -47,7 +59,7 @@
                         </div>
                     </div>
 
-                    <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Username">
+                    <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Suchen">
                 </div>
             </div>
 
@@ -72,24 +84,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($entries as $entry)
-                <tr>
-                    <td> {{ $entry->account->account_holder }} </td>
-                    <td> {{ $entry->category->category_name }} </td>
-                    <td> {{ $entry->entry_date->format('d M Y') }} </td>
-                    <td> {{ $entry->entry_description }} </td>
-                    <td> {{ number_format($entry->entry_amount, 2, ',', '.') }} €</td>
-                    <td>
-                        <a href="{{ route('entry.edit', $entry->entry_id) }}" class="btn btn-primary btn-sm active floated" role="button" aria-pressed="true">Bearbeiten</a>
-                        <form method="post" action="{{ route('entry.destroy', $entry->entry_id) }}">
-                            @method('delete')
-                            @csrf
-                            <button onclick="return confirm('Möchten Sie diesen Eintrag wirklich löschen?')"
-                            class="btn btn-danger btn-sm floated" type="submit">Löschen</button>
-                        </form>
-                    </td>
-                </tr>
-                @endforeach
+@yield('tableRow')
             </tbody>
         </table>
     </div>

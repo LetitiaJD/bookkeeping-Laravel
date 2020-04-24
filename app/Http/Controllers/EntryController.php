@@ -126,4 +126,21 @@ class EntryController extends Controller
     {
         //
     }
+
+    /**
+    * Returns selected rows of table based on searchTerm and date range
+    * Called via ajax on index
+    */
+    public function filter($date, $searchTerm)
+    {
+        if(!empty($date)){
+
+        }
+
+        if(!empty($searchTerm)){
+            
+        }
+
+        return view('entry.tableRow', compact('entries'));
+    }
 }

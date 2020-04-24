@@ -24,7 +24,7 @@
 
 <div class="row">
     <div class="col-12">
-        <table class="table table-striped">
+        <table class="table table-striped table-bordered">
             <thead class="table-dark">
                 <tr>
                     <td>Kontotyp</td>
