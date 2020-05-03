@@ -23,4 +23,4 @@ Route::resource('category', 'CategoryController');
 
 Route::resource('entry', 'EntryController');
 
-Route::post('/filter', 'EntryController@filter');
+Route::get('filter', 'EntryController@filter');

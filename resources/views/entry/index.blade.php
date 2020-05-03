@@ -24,7 +24,7 @@
 
 <div>
     <form>
-        <div class="form-row align-items-center">
+        <div class="form-row align-items-center justify-content-between">
             <div class="col-auto">
                 <div class="input-group mb-2">
                     <label for="showEntries">Anzeige </label>
@@ -38,33 +38,37 @@
             </div>
 
             <div class="col-auto">
-                <label class="sr-only" for="calendarRange"></label>
-                <div class="input-group mb-2">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">
-                            <i class="far fa-calendar-alt"></i>
+                <div class="row no-gutters">
+                    <div class="col-auto">
+                        <label class="sr-only" for="calendarRange"></label>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="far fa-calendar-alt"></i>
+                                </div>
+                            </div>
+
+                            <input type="text" class="form-control" id="calendarRange" placeholder="Zeitraum">
                         </div>
                     </div>
 
-                    <input type="text" class="form-control" id="calendarRange" placeholder="Zeitraum">
-                </div>
-            </div>
+                    <div class="col-auto" style="margin:0 10px;">
+                        <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fas fa-search"></i>
+                                </div>
+                            </div>
 
-            <div class="col-auto">
-                <label class="sr-only" for="inlineFormInputGroup">Username</label>
-                <div class="input-group mb-2">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">
-                            <i class="fas fa-search"></i>
+                            <input type="text" class="form-control" id="searchInput" placeholder="Suchen">
                         </div>
                     </div>
 
-                    <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Suchen">
+                    <div class="col-auto">
+                        <button type="button" id="refreshBtn" class="btn btn-primary mb-2">Aktualisieren</button>
+                    </div>
                 </div>
-            </div>
-
-            <div class="col-auto">
-                <button type="submit" class="btn btn-primary mb-2">Suchen</button>
             </div>
         </div>
     </form>
@@ -72,7 +76,7 @@
 
 <div class="row">
     <div class="col-12">
-        <table class="table table-striped table-bordered">
+        <table class="table table-striped table-bordered" id="entriesTable">
             <thead class="table-dark">
                 <tr>
                     <td>Kontoinhaber</td>
@@ -84,17 +88,10 @@
                 </tr>
             </thead>
             <tbody>
-@yield('tableRow')
+                @yield('tableRow')
             </tbody>
         </table>
     </div>
 </div>
-
-<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<script type="text/javascript" src="js/calendar.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"/>
 
 @endsection

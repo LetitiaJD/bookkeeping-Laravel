@@ -9,6 +9,7 @@ use App\Category;
 use DB;
 use App\Http\Controllers\Controller;
 use App\Exceptions\Handler;
+use Illuminate\Support\Facades\View;
 
 class EntryController extends Controller
 {
@@ -131,16 +132,30 @@ class EntryController extends Controller
     * Returns selected rows of table based on searchTerm and date range
     * Called via ajax on index
     */
-    public function filter($date, $searchTerm)
+    public function filter(Request $request)
     {
-        if(!empty($date)){
+        $entries = new Entry();
 
+        if(isset($request['startDate']) && !empty( $request['startDate'])) {
+            $entries = $entries->where('entry_date', '>=', $request['startDate']);
+        }
+        if(isset($request['endDate']) && !empty( $request['endDate'])) {
+            $entries = $entries->where('entry_date', '<=', $request['endDate']);
+        }
+        if(isset($request['searchTerm']) && !empty( $request['searchTerm'])) {
+             $entries = $entries->where('entry_description', 'LIKE', '%' . $request['searchTerm'] . '%');
         }
 
-        if(!empty($searchTerm)){
-            
+        $entries = $entries->get();
+
+        if($entries->isEmpty()){
+            echo '<tr><td colspan="6">Keine Ergebnisse gefunden.</td></tr>';
+            return;
         }
 
-        return view('entry.tableRow', compact('entries'));
+        $view = View::make('entry.index')->with('entries', $entries);
+
+        $sections = $view->renderSections();
+        return $sections['tableRow'];
     }
 }
