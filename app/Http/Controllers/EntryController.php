@@ -10,9 +10,15 @@ use DB;
 use App\Http\Controllers\Controller;
 use App\Exceptions\Handler;
 use Illuminate\Support\Facades\View;
+use Illuminate\Pagination\Paginator;
 
 class EntryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +26,9 @@ class EntryController extends Controller
      */
     public function index()
     {
-        $entries = Entry::all();
+        $entriesPerPage = isset($request['entriesPerPage']) ? $request['entriesPerPage'] : 10;
+
+        $entries = Entry::paginate($entriesPerPage);
 
         return view('entry.index', compact('entries'));
     }
@@ -135,6 +143,7 @@ class EntryController extends Controller
     public function filter(Request $request)
     {
         $entries = new Entry();
+        $entriesPerPage = isset($request['entriesPerPage']) ? $request['entriesPerPage'] : 10;
 
         if(isset($request['startDate']) && !empty( $request['startDate'])) {
             $entries = $entries->where('entry_date', '>=', $request['startDate']);
@@ -146,7 +155,7 @@ class EntryController extends Controller
              $entries = $entries->where('entry_description', 'LIKE', '%' . $request['searchTerm'] . '%');
         }
 
-        $entries = $entries->get();
+        $entries = $entries->orderBy('entry_date', 'asc')->paginate($entriesPerPage);
 
         if($entries->isEmpty()){
             echo '<tr><td colspan="6">Keine Ergebnisse gefunden.</td></tr>';
@@ -156,6 +165,6 @@ class EntryController extends Controller
         $view = View::make('entry.index')->with('entries', $entries);
 
         $sections = $view->renderSections();
-        return $sections['tableRow'];
+        return $sections['tableWithPagination'];
     }
 }

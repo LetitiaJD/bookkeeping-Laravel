@@ -4,7 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <title>Haushaltsbuch</title>
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name', 'Haushaltsbuch') }}</title>
 
     <link rel="stylesheet" href="css/normalize.css"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -13,47 +17,8 @@
 
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-        <div class="container">
-            <!-- Brand -->
-            <a class="navbar-brand" href="#">Haushaltsbuch</a>
 
-            <!-- Links -->
-            <ul class="navbar-nav">
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                        Transaktionen
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="{{ route('entry.create') }}">Transaktion hinzufügen</a>
-                        <a class="dropdown-item" href="{{ route('entry.index') }}">Transaktionsübersicht</a>
-                    </div>
-                </li>
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                        Kategorienverwaltung
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="{{ route('category.create') }}">Kategorie hinzufügen</a>
-                        <a class="dropdown-item" href="{{ route('category.index') }}">Kategorienübersicht</a>
-                    </div>
-                </li>
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                        Kontenverwaltung
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="{{ route('account.create') }}">Konto hinzufügen</a>
-                        <a class="dropdown-item" href="{{ route('account.index') }}">Kontenübersicht</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    @include('includes/navbar')
 
     <!-- Page Content -->
     <div class="container main-content">

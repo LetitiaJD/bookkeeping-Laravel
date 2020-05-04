@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Auth\Middleware\Authenticate;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,7 @@ Route::resource('category', 'CategoryController');
 Route::resource('entry', 'EntryController');
 
 Route::get('filter', 'EntryController@filter');
+
+Auth::routes();
+
+Route::get('/dashboard', 'DashboardController@index');

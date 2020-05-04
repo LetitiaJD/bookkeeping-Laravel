@@ -1,7 +1,7 @@
 @extends('base')
 
 @section('main')
-@include('entry.tableRow')
+@include('entry.tableWithPagination')
 <div class="row">
     <div class="col-12">
         @if(session('success'))
@@ -27,13 +27,13 @@
         <div class="form-row align-items-center justify-content-between">
             <div class="col-auto">
                 <div class="input-group mb-2">
-                    <label for="showEntries">Anzeige </label>
-                    <select id="showEntries" class="form-control form-control-sm">
-                        <option>5</option>
-                        <option>10</option>
+                    <label for="entriesPerPage">Anzeige </label>
+                    <select id="entriesPerPage" class="form-control form-control-sm">
+                        <option selected>10</option>
                         <option>20</option>
+                        <option>50</option>
                     </select>
-                    <label for="showEntries">Einträge</label>
+                    <label for="entriesPerPage">Einträge</label>
                 </div>
             </div>
 
@@ -74,24 +74,6 @@
     </form>
 </div>
 
-<div class="row">
-    <div class="col-12">
-        <table class="table table-striped table-bordered" id="entriesTable">
-            <thead class="table-dark">
-                <tr>
-                    <td>Kontoinhaber</td>
-                    <td>Kategorie</td>
-                    <td>Eintragsdatum</td>
-                    <td>Beschreibung</td>
-                    <td>Betrag</td>
-                    <td>Aktionen</td>
-                </tr>
-            </thead>
-            <tbody>
-                @yield('tableRow')
-            </tbody>
-        </table>
-    </div>
-</div>
+@yield('tableWithPagination')
 
 @endsection
