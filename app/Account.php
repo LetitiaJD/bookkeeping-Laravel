@@ -31,4 +31,11 @@ class Account extends Model
     public function entry(){
         return $this->hasOne('App\Entry', 'account_id');
     }
+
+    /**
+     * The users that belong to the accounts.
+     */
+    public function users(){
+        return $this->belongsToMany('App\User', 'account_user', 'account_id', 'user_id');
+    }
 }

@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <div class="container">
         <!-- Brand -->
-        <a class="navbar-brand" href="#">Haushaltsbuch</a>
+        <a class="navbar-brand" href="{{ route('dashboard') }}">Haushaltsbuch</a>
 
         <!-- Links -->
         <ul class="navbar-nav">
@@ -43,11 +43,11 @@
             <!-- Authentication Links -->
             @guest
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                    <a class="nav-link" href="{{ route('login') }}">{{ __('Anmelden') }}</a>
                 </li>
                 @if (Route::has('register'))
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                        <a class="nav-link" href="{{ route('register') }}">{{ __('Registrieren') }}</a>
                     </li>
                 @endif
             @else

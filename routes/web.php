@@ -28,4 +28,4 @@ Route::get('filter', 'EntryController@filter');
 
 Auth::routes();
 
-Route::get('/dashboard', 'DashboardController@index');
+Route::get('/dashboard', 'DashboardController@index')->name('dashboard');

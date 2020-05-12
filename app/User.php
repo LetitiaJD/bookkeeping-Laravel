@@ -10,6 +10,8 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    protected $primaryKey = 'user_id';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -36,4 +38,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * The accounts that belong to the user.
+     */
+    public function accounts(){
+        return $this->belongsToMany('App\Account', 'account_user', 'user_id', 'account_id');
+    }
 }
