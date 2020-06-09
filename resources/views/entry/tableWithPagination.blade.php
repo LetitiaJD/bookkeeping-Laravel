@@ -15,7 +15,6 @@
                     </tr>
                 </thead>
                 <tbody>
-
                     @foreach ($entries as $entry)
                     <tr>
                         <td> {{ $entry->account->account_holder }} </td>
@@ -34,7 +33,6 @@
                         </td>
                     </tr>
                     @endforeach
-
                 </tbody>
             </table>
         </div>

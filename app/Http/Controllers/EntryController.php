@@ -6,11 +6,13 @@ use Illuminate\Http\Request;
 use App\Entry;
 use App\Account;
 use App\Category;
-use DB;
+use App\User;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Exceptions\Handler;
 use Illuminate\Support\Facades\View;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Auth;
 
 class EntryController extends Controller
 {
@@ -22,13 +24,23 @@ class EntryController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $entriesPerPage = isset($request['entriesPerPage']) ? $request['entriesPerPage'] : 10;
+        $entriesPerPage = isset($request['entriesPerPage']) ? $request['entriesPerPage'] : 1;
 
-        $entries = Entry::paginate($entriesPerPage);
+        $user = Auth::user();
+        $account_ids = [];
+
+        foreach($user->accounts as $account){
+            array_push($account_ids, $account->pivot->account_id);
+        }
+
+        $values = implode(",", $account_ids);
+
+        $entries = Entry::whereRaw('account_id IN ' .'(' . $values .')')->paginate($entriesPerPage);
+
+        //$entries = Entry::paginate($entriesPerPage);
 
         return view('entry.index', compact('entries'));
     }

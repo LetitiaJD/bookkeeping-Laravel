@@ -81,7 +81,7 @@ $(document).ready(function() {
             $('#tableWithPagination').append(response);
         });
     }
-
+/*
     $( "#refreshBtn" ).click(function() {
         fetch_data(1);
     });
@@ -91,4 +91,5 @@ $(document).ready(function() {
         var page = $(this).attr('href').split('page=')[1];
         fetch_data(page);
     });
+    */
 });
