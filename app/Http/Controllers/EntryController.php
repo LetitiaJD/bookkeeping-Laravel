@@ -155,7 +155,19 @@ class EntryController extends Controller
     public function filter(Request $request)
     {
         $entries = new Entry();
-        $entriesPerPage = isset($request['entriesPerPage']) ? $request['entriesPerPage'] : 10;
+
+        $user = Auth::user();
+        $account_ids = [];
+
+        foreach($user->accounts as $account){
+            array_push($account_ids, $account->pivot->account_id);
+        }
+
+        $values = implode(",", $account_ids);
+
+        $entries = $entries->whereRaw('account_id IN ' .'(' . $values .')');
+
+        $entriesPerPage = isset($request['entriesPerPage']) ? $request['entriesPerPage'] : 1;
 
         if(isset($request['startDate']) && !empty( $request['startDate'])) {
             $entries = $entries->where('entry_date', '>=', $request['startDate']);

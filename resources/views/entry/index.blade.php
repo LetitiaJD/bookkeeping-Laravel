@@ -29,7 +29,8 @@
                 <div class="input-group mb-2">
                     <label for="entriesPerPage">Anzeige </label>
                     <select id="entriesPerPage" class="form-control form-control-sm">
-                        <option selected>10</option>
+                        <option selected>1</option>
+                        <option>10</option>
                         <option>20</option>
                         <option>50</option>
                     </select>
