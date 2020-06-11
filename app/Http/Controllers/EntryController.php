@@ -40,8 +40,6 @@ class EntryController extends Controller
 
         $entries = Entry::whereRaw('account_id IN ' .'(' . $values .')')->paginate($entriesPerPage);
 
-        //$entries = Entry::paginate($entriesPerPage);
-
         return view('entry.index', compact('entries'));
     }
 
