@@ -40,8 +40,6 @@ class EntryController extends Controller
 
         $entries = Entry::whereRaw('account_id IN ' .'(' . $values .')')->paginate($entriesPerPage);
 
-        //$entries = Entry::paginate($entriesPerPage);
-
         return view('entry.index', compact('entries'));
     }
 
@@ -52,9 +50,16 @@ class EntryController extends Controller
      */
     public function create()
     {
-        // Required for select dropdown to select an account
-        // Remove once login has been implemented
-        $accounts = Account::all();
+        $user = Auth::user();
+        $account_ids = [];
+
+        foreach($user->accounts as $account){
+            array_push($account_ids, $account->pivot->account_id);
+        }
+
+        $values = implode(",", $account_ids);
+
+        $accounts = Account::whereRaw('account_id IN ' .'(' . $values .')')->get();
 
         $categories = Category::all();
 

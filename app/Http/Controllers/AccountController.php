@@ -4,7 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Account;
+use App\User;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Exceptions\Handler;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Auth;
+use App\Entry;
 use Illuminate\Support\Facades\Validator;
 
 class AccountController extends Controller
@@ -13,15 +19,22 @@ class AccountController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $accounts = Account::all();
+        $user = Auth::user();
+        $account_ids = [];
+
+        foreach($user->accounts as $account){
+            array_push($account_ids, $account->pivot->account_id);
+        }
+        $values = implode(",", $account_ids);
+
+        $accounts = Account::whereRaw('account_id IN ' .'(' . $values .')')->get();
 
         return view('account.index', compact('accounts'));
     }
@@ -54,10 +67,15 @@ class AccountController extends Controller
 
         $validator = $request->validate([
             'account_type' => 'required|max:255|alpha_num',
-            'account_holder' => 'required|max:255|unique:account,account_holder'
+            'account_holder' => 'required|max:255'
         ], $messages);
 
         $account = Account::create($request->all())->save();
+
+        $user_id = Auth::user()->user_id;
+        $account_id = DB::getPdo()->lastInsertId();
+
+        DB::insert('insert into account_user (account_id, user_id, permission) values (?, ?, ?)', [$account_id, $user_id, 0]);
 
         return redirect()->route('account.index')->with('success', 'Das Konto wurde erfolgreich gespeichert');
     }
