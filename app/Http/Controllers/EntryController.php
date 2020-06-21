@@ -86,7 +86,7 @@ class EntryController extends Controller
         $validator = $request->validate([
             'entry_date' => 'required|date',
             'entry_description' => 'required|max:255|alpha_num',
-            'entry_amount' => 'required|regex:/^(\d+(?:[\.\,]\d{2})?)$/',
+            'entry_amount' => 'required|regex:/^[+-](\d+(?:[\.\,]\d{2})?)$/',
         ], $messages);
 
         $entry = new Entry();
