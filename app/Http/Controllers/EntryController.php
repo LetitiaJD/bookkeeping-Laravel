@@ -79,13 +79,12 @@ class EntryController extends Controller
             'entry_date.required' => 'Das Eintragsdatum muss angegeben sein.',
             'entry_description.required' => 'Eine Beschreibung muss angegeben werden.',
             'entry_description.max' => 'Die Beschreibung darf nicht mehr als 255 Zeichen umfassen.',
-            'entry_description.alpha_num' => 'Die Beschreibung darf nur aus alphanumerischen Zeichen bestehen.',
             'entry_amount.required' => 'Der Betrag muss angegeben sein.'
         ];
 
         $validator = $request->validate([
             'entry_date' => 'required|date',
-            'entry_description' => 'required|max:255|alpha_num',
+            'entry_description' => 'required|max:255',
             'entry_amount' => 'required|regex:/^[+-](\d+(?:[\.\,]\d{2})?)$/',
         ], $messages);
 
