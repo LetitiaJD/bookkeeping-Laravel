@@ -27,7 +27,7 @@ class EntryController extends Controller
      */
     public function index()
     {
-        $entriesPerPage = isset($request['entriesPerPage']) ? $request['entriesPerPage'] : 1;
+        $entriesPerPage = isset($request['entriesPerPage']) ? $request['entriesPerPage'] : 10;
 
         $user = Auth::user();
         $account_ids = [];
@@ -77,7 +77,7 @@ class EntryController extends Controller
         $messages = [
             'entry_date.date' => 'Das Eintragsdatum muss das Format \'tt.mm.jjjj\' haben.',
             'entry_date.required' => 'Das Eintragsdatum muss angegeben sein.',
-            'entry_description.required' => 'Der Kontotyp muss angegeben werden.',
+            'entry_description.required' => 'Eine Beschreibung muss angegeben werden.',
             'entry_description.max' => 'Die Beschreibung darf nicht mehr als 255 Zeichen umfassen.',
             'entry_description.alpha_num' => 'Die Beschreibung darf nur aus alphanumerischen Zeichen bestehen.',
             'entry_amount.required' => 'Der Betrag muss angegeben sein.'
@@ -172,7 +172,7 @@ class EntryController extends Controller
 
         $entries = $entries->whereRaw('account_id IN ' .'(' . $values .')');
 
-        $entriesPerPage = isset($request['entriesPerPage']) ? $request['entriesPerPage'] : 1;
+        $entriesPerPage = isset($request['entriesPerPage']) ? $request['entriesPerPage'] : 10;
 
         if(isset($request['startDate']) && !empty( $request['startDate'])) {
             $entries = $entries->where('entry_date', '>=', $request['startDate']);
